@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../config';
 
 const MapMockup = ({ busLocation }) => {
-  // Default coordinates (Madurai approx)
-  const lat = busLocation?.lat || 9.9252;
-  const lng = busLocation?.lng || 78.1198;
+  const [liveLocation, setLiveLocation] = useState(busLocation || { lat: 9.9252, lng: 78.1198 });
+
+  // Sync with prop if it changes
+  useEffect(() => {
+    if (busLocation) setLiveLocation(busLocation);
+  }, [busLocation]);
+
+  // Listen for real-time global socket broadcasts
+  useEffect(() => {
+    const socket = io(SOCKET_URL);
+    
+    socket.on('location_update', (data) => {
+      if (data.lat && data.lng) {
+        setLiveLocation({ lat: data.lat, lng: data.lng, speed: data.speed });
+      }
+    });
+
+    return () => socket.disconnect();
+  }, []);
+
+  const lat = liveLocation.lat;
+  const lng = liveLocation.lng;
   const zoomFactor = 0.0025; // Controls zoom level (smaller is more zoomed in)
 
   return (

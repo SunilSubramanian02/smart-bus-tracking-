@@ -8,6 +8,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import MapMockup from '../../components/Map';
 import logo from '../../assets/logo.jpeg';
 import collegeImg from '../../assets/college_ref.jpeg';
+import { io } from 'socket.io-client';
+import { SOCKET_URL } from '../../config';
 
 const DriverInterface = () => {
   const [isLive, setIsLive] = useState(false);
@@ -21,25 +23,39 @@ const DriverInterface = () => {
 
   useEffect(() => {
     let watchId;
+    let intervalId;
+    let socket;
+
     if (isLive) {
+      socket = io(SOCKET_URL);
+      let currentPos = null;
+
       if ("geolocation" in navigator) {
         watchId = navigator.geolocation.watchPosition(
-          (position) => {
+          (position) => { currentPos = position; },
+          (error) => console.error("Error watching location:", error),
+          { enableHighAccuracy: true, maximumAge: 0 }
+        );
+
+        intervalId = setInterval(() => {
+          if (currentPos) {
             const newLoc = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-              speed: position.coords.speed || 0,
+              busId: "SRM-07",
+              lat: currentPos.coords.latitude,
+              lng: currentPos.coords.longitude,
+              speed: currentPos.coords.speed || 0,
               timestamp: Date.now()
             };
             setLocation(newLoc);
             localStorage.setItem('sbt_bus_07_location', JSON.stringify(newLoc));
-          },
-          (error) => console.error("Error watching location:", error),
-          { enableHighAccuracy: true }
-        );
+            socket.emit('update_location', newLoc);
+          }
+        }, 5000);
       } else {
-        const interval = setInterval(() => {
+        // Fallback for testing environments
+        intervalId = setInterval(() => {
           const mockLoc = {
+            busId: "SRM-07",
             lat: 9.9252 + (Math.random() - 0.5) * 0.005,
             lng: 78.1198 + (Math.random() - 0.5) * 0.005,
             speed: 35 + Math.random() * 15,
@@ -47,12 +63,15 @@ const DriverInterface = () => {
           };
           setLocation(mockLoc);
           localStorage.setItem('sbt_bus_07_location', JSON.stringify(mockLoc));
-        }, 2000);
-        return () => clearInterval(interval);
+          socket.emit('update_location', mockLoc);
+        }, 5000);
       }
     }
+
     return () => {
       if (watchId) navigator.geolocation.clearWatch(watchId);
+      if (intervalId) clearInterval(intervalId);
+      if (socket) socket.disconnect();
     };
   }, [isLive]);
 
