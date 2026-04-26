@@ -81,15 +81,18 @@ io.on('connection', (socket) => {
     try {
       const { busId, routeId, lat, lng, speed } = data;
       
-      // 1. Update Bus Location in DB
-      await Bus.findByIdAndUpdate(busId, {
-        currentLocation: { lat, lng, speed, updatedAt: new Date() }
-      });
+      // 1. Update Bus Location in DB if busId is valid MongoDB ID
+      if (busId && mongoose.Types.ObjectId.isValid(busId)) {
+        await Bus.findByIdAndUpdate(busId, {
+          currentLocation: { lat, lng, speed, updatedAt: new Date() }
+        });
+      }
 
-      // Broadcast basic location to all students in that bus room
-      io.to(`bus_${busId}`).emit('location_update', { busId, lat, lng, speed });
+      // Broadcast basic location to ALL connected maps globally (Demo Mode)
+      io.emit('location_update', { busId, lat, lng, speed });
 
       // 2. Fetch the Route & Stops for relative tracking
+      if (!routeId || !mongoose.Types.ObjectId.isValid(routeId)) return;
       const route = await Route.findById(routeId);
       if (!route) return;
 
