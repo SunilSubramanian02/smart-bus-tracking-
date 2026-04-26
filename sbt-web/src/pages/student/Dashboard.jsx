@@ -105,43 +105,43 @@ const Dashboard = () => {
               </div>
            </div>
            
-           <div className="flex items-center gap-4 relative">
-              <button 
-                onClick={() => setShowNotifications(!showNotifications)}
-                className="w-14 h-14 glass-dark rounded-2xl flex items-center justify-center relative hover:bg-white/10 transition-all active:scale-90 group border border-white/5"
-              >
-                 <Bell className="w-6 h-6 text-white group-hover:rotate-12 transition-transform" />
-                 <span className="absolute top-4 right-4 w-2.5 h-2.5 bg-yellow-400 rounded-full shadow-[0_0_15px_#facc15]" />
-              </button>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 relative w-full sm:w-auto">
+               <button 
+                 onClick={() => setShowNotifications(!showNotifications)}
+                 className="w-14 h-14 glass-dark rounded-2xl flex items-center justify-center relative hover:bg-white/10 transition-all active:scale-90 group border border-white/5 ml-auto sm:ml-0"
+               >
+                  <Bell className="w-6 h-6 text-white group-hover:rotate-12 transition-transform" />
+                  <span className="absolute top-4 right-4 w-2.5 h-2.5 bg-yellow-400 rounded-full shadow-[0_0_15px_#facc15]" />
+               </button>
 
-              <AnimatePresence>
-                {showNotifications && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20, scale: 0.9, rotateX: -20 }}
-                    animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    className="absolute top-20 right-0 w-80 glass-dark border border-white/15 rounded-[2.5rem] p-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] z-[100] backdrop-blur-3xl"
-                  >
-                    <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-white text-[10px] font-black uppercase tracking-widest opacity-50">Signal Intelligence</h3>
-                      <Activity size={14} className="text-blue-400" />
-                    </div>
-                    <div className="space-y-4">
-                      {notifications.map(n => (
-                        <div key={n.id} className="p-4 bg-white/[0.03] rounded-3xl border border-white/5 hover:bg-white/[0.06] transition-colors cursor-default group">
-                          <p className="text-yellow-400 text-[9px] font-black uppercase tracking-tighter mb-1.5">{n.title}</p>
-                          <p className="text-white/80 text-xs font-medium leading-relaxed">{n.message}</p>
-                          <p className="text-white/20 text-[9px] mt-3 font-bold flex items-center gap-2">
-                            <Clock size={10} /> {n.time}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-           </div>
-        </div>
+               <AnimatePresence>
+                 {showNotifications && (
+                   <motion.div 
+                     initial={{ opacity: 0, y: 20, scale: 0.9, rotateX: -20 }}
+                     animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                     className="absolute top-20 right-0 sm:right-0 w-[calc(100vw-4rem)] sm:w-80 glass-dark border border-white/15 rounded-[2.5rem] p-6 shadow-[0_40px_100px_rgba(0,0,0,0.6)] z-[100] backdrop-blur-3xl"
+                   >
+                     <div className="flex items-center justify-between mb-6">
+                       <h3 className="text-white text-[10px] font-black uppercase tracking-widest opacity-50">Signal Intelligence</h3>
+                       <Activity size={14} className="text-blue-400" />
+                     </div>
+                     <div className="space-y-4 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                       {notifications.map(n => (
+                         <div key={n.id} className="p-4 bg-white/[0.03] rounded-3xl border border-white/5 hover:bg-white/[0.06] transition-colors cursor-default group">
+                           <p className="text-yellow-400 text-[9px] font-black uppercase tracking-tighter mb-1.5">{n.title}</p>
+                           <p className="text-white/80 text-xs font-medium leading-relaxed">{n.message}</p>
+                           <p className="text-white/20 text-[9px] mt-3 font-bold flex items-center gap-2">
+                             <Clock size={10} /> {n.time}
+                           </p>
+                         </div>
+                       ))}
+                     </div>
+                   </motion.div>
+                 )}
+               </AnimatePresence>
+            </div>
+         </div>
 
         {/* Hero HUD Section */}
         <div className="px-8 pt-4 pb-12 space-y-6">
@@ -173,26 +173,26 @@ const Dashboard = () => {
            {/* Radar View: Tactical Bus Tracking */}
            <motion.div 
              whileHover={{ scale: 1.02 }}
-             className="glass p-10 rounded-[3.5rem] border border-slate-200 relative overflow-hidden group shadow-3xl"
+             className="glass p-6 md:p-10 rounded-[2.5rem] md:rounded-[3.5rem] border border-slate-200 relative overflow-hidden group shadow-3xl flex flex-col"
            >
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-[80px] group-hover:bg-blue-600/20 transition-all duration-700" />
               
-              <div className="flex items-center justify-between relative z-10 mb-10">
-                 <div className="flex items-center gap-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between relative z-10 mb-8 md:mb-10 gap-6">
+                 <div className="flex items-center gap-4 md:gap-6">
                     <div className="relative">
-                      <div className="w-16 h-16 bg-blue-600 rounded-[1.8rem] flex items-center justify-center text-white shadow-[0_0_40px_rgba(37,99,235,0.4)] group-hover:scale-110 transition-transform duration-500">
-                         <Radio className="w-8 h-8 animate-pulse" />
+                      <div className="w-14 h-14 md:w-16 md:h-16 bg-blue-600 rounded-[1.4rem] md:rounded-[1.8rem] flex items-center justify-center text-white shadow-[0_0_40px_rgba(37,99,235,0.4)] group-hover:scale-110 transition-transform duration-500">
+                         <Radio className="w-6 h-6 md:w-8 md:h-8 animate-pulse" />
                       </div>
                       <div className="absolute -inset-2 border border-blue-500/30 rounded-[2rem] animate-pulse-soft" />
                     </div>
                     <div>
-                       <p className="text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] mb-1.5 flex items-center gap-2">
+                       <p className="text-[9px] md:text-[10px] font-black text-blue-600 uppercase tracking-[0.3em] mb-1.5 flex items-center gap-2">
                          <Globe size={12} /> Live Coordinate Link
                        </p>
-                       <h3 className="text-2xl font-black text-slate-800 tracking-tight">SRM FLEET - 07</h3>
+                       <h3 className="text-xl md:text-2xl font-black text-slate-800 tracking-tight">SRM FLEET - 07</h3>
                     </div>
                  </div>
-                 <div className="text-right">
+                 <div className="text-left sm:text-right w-full sm:w-auto">
                     <p className="text-4xl font-black text-blue-600 tracking-tighter">{busDist} <span className="text-sm">KM</span></p>
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Spatial Proximity</p>
                  </div>
@@ -221,7 +221,7 @@ const Dashboard = () => {
            </motion.div>
 
            {/* Action Matrix */}
-           <div className="grid grid-cols-2 gap-6">
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <InteractiveCard 
                 icon={<Navigation />} 
                 title="RADAR MAP" 
@@ -253,7 +253,7 @@ const Dashboard = () => {
            </div>
 
            {/* Security Mesh Card */}
-           <div className="glass p-10 rounded-[3.5rem] border border-slate-200 relative overflow-hidden group shadow-xl">
+           <div className="glass p-6 md:p-10 rounded-[2.5rem] md:rounded-[3.5rem] border border-slate-200 relative overflow-hidden group shadow-xl">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="flex flex-col gap-8 relative z-10">
                  <div className="flex items-center justify-between">
@@ -287,8 +287,8 @@ const Dashboard = () => {
       </div>
 
       {/* Command Dock HUD */}
-      <div className="fixed bottom-10 left-1/2 -translate-x-1/2 w-[94%] max-w-lg z-[100]">
-         <div className="glass px-10 py-6 rounded-[3rem] shadow-[0_40px_120px_rgba(0,0,0,0.15)] border border-slate-200 flex items-center justify-between backdrop-blur-3xl relative overflow-hidden">
+      <div className="fixed bottom-0 md:bottom-10 left-0 md:left-1/2 md:-translate-x-1/2 w-full md:w-[94%] md:max-w-lg z-[100]">
+         <div className="glass px-6 md:px-10 py-5 md:py-6 rounded-t-[2.5rem] md:rounded-[3rem] shadow-[0_-20px_40px_rgba(0,0,0,0.1)] md:shadow-[0_40px_120px_rgba(0,0,0,0.15)] border-t border-slate-200 md:border-x md:border-b flex items-center justify-between backdrop-blur-3xl relative overflow-hidden pb-8 md:pb-6">
             <div className="absolute inset-0 bg-blue-600/5 pointer-events-none" />
             <DockItem icon={<LayoutDashboard />} label="Cmd" active />
             <DockItem icon={<MapIcon />} label="Radar" onClick={() => navigate('/student/track')} />

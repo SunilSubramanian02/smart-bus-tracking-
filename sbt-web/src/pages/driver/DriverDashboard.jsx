@@ -117,10 +117,10 @@ const DriverInterface = () => {
       </header>
 
       {/* Main Command Deck */}
-      <main className="flex-1 flex flex-col lg:flex-row relative z-10 overflow-hidden">
+      <main className="flex-1 flex flex-col lg:flex-row relative z-10 overflow-y-auto lg:overflow-hidden pb-10 lg:pb-0">
         
         {/* Navigation & Spatial View */}
-        <div className="flex-[2.5] relative group">
+        <div className="h-[50vh] lg:h-auto lg:flex-[2.5] relative group shrink-0">
            <div className="absolute inset-0 bg-blue-900/10 pointer-events-none" />
            <MapMockup busLocation={location} />
            
@@ -184,7 +184,7 @@ const DriverInterface = () => {
         </div>
 
         {/* Tactical Control Panel */}
-        <aside className="flex-1 bg-white/[0.02] backdrop-blur-3xl border-l border-white/10 p-8 flex flex-col gap-8 overflow-y-auto">
+        <aside className="flex-1 bg-white/[0.02] backdrop-blur-3xl border-t lg:border-l lg:border-t-0 border-white/10 p-6 md:p-8 flex flex-col gap-6 md:gap-8 overflow-y-auto">
           
           {/* Biometric/Boarding Panel */}
           <div className="space-y-4">

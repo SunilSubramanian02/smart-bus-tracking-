@@ -119,7 +119,7 @@ const ParentDashboard = () => {
           </div>
         </header>
 
-        <main className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full space-y-6">
+        <main className="flex-1 p-4 md:p-8 pb-32 max-w-7xl mx-auto w-full space-y-6">
           
           {/* Child Identity Card */}
           <div className="glass-dark border border-white/10 rounded-3xl p-6 relative overflow-hidden flex flex-col md:flex-row items-center gap-6 shadow-2xl">
@@ -273,16 +273,16 @@ const ParentDashboard = () => {
                </div>
                
                <div className="flex flex-col gap-3 w-full">
-                 <div className="flex gap-3 w-full">
+                 <div className="flex flex-col sm:flex-row gap-3 w-full">
                    <a 
                      href={`https://www.google.com/maps?q=${emergencyAlert.location?.lat},${emergencyAlert.location?.lng}`}
                      target="_blank" rel="noopener noreferrer"
-                     className="flex-1 py-4 bg-red-600 text-white rounded-2xl font-black text-xs shadow-lg shadow-red-600/20 hover:bg-red-500 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest"
+                     className="flex-1 py-4 px-2 bg-red-600 text-white rounded-2xl font-black text-[10px] md:text-xs shadow-lg shadow-red-600/20 hover:bg-red-500 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-center"
                    >
-                     <MapPin className="w-4 h-4" /> TRACK LIVE LOCATION
+                     <MapPin className="w-4 h-4 shrink-0" /> TRACK LIVE LOCATION
                    </a>
-                   <a href="tel:100" className="flex-1 py-4 bg-white/10 text-white rounded-2xl font-black text-xs shadow-lg hover:bg-white/20 border border-white/10 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest">
-                     <Phone className="w-4 h-4" /> Dial 100
+                   <a href="tel:100" className="flex-1 py-4 px-2 bg-white/10 text-white rounded-2xl font-black text-[10px] md:text-xs shadow-lg hover:bg-white/20 border border-white/10 transition-colors flex items-center justify-center gap-2 uppercase tracking-widest text-center">
+                     <Phone className="w-4 h-4 shrink-0" /> Dial 100
                    </a>
                  </div>
                  <button 

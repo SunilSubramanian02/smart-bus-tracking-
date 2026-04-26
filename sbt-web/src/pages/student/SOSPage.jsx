@@ -66,25 +66,25 @@ const SOSPage = () => {
        </header>
 
        <main className="flex-1 flex flex-col items-center justify-center p-8 text-center">
-          <div className="relative mb-12 flex items-center justify-center">
+          <div className="relative mb-16 flex items-center justify-center">
              {/* Radiating Rings */}
              <motion.div 
                animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
                transition={{ duration: 2, repeat: Infinity }}
-               className="absolute w-48 h-48 bg-red-100 rounded-full"
+               className="absolute w-72 h-72 md:w-64 md:h-64 bg-red-100 rounded-full"
              />
              <motion.div 
                animate={{ scale: [1, 1.8], opacity: [0.3, 0] }}
                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-               className="absolute w-48 h-48 bg-red-50 rounded-full"
+               className="absolute w-72 h-72 md:w-64 md:h-64 bg-red-50 rounded-full"
              />
              
              <button 
                onClick={handleSOS}
                disabled={loading}
-               className={`relative z-10 w-40 h-40 rounded-full flex items-center justify-center shadow-2xl transition-all active:scale-90 ${active ? 'bg-red-800' : 'bg-[#DC2626]'} ${loading ? 'opacity-80' : ''}`}
+               className={`relative z-10 w-60 h-60 md:w-48 md:h-48 rounded-full flex items-center justify-center shadow-2xl transition-all active:scale-90 ${active ? 'bg-red-800' : 'bg-[#DC2626]'} ${loading ? 'opacity-80' : ''}`}
              >
-                <span className="text-white text-4xl font-black tracking-tighter">
+                <span className="text-white text-5xl md:text-4xl font-black tracking-tighter">
                   {loading ? '...' : 'SOS'}
                 </span>
              </button>

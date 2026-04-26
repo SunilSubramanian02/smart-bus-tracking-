@@ -46,7 +46,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen w-full relative flex items-center justify-center font-['Outfit',_sans-serif] overflow-hidden bg-slate-950">
+    <div className="min-h-[100dvh] w-full relative flex items-center justify-center font-['Outfit',_sans-serif] overflow-hidden bg-slate-950">
       {/* Cinematic Background HUD */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <img 
@@ -60,7 +60,7 @@ const Register = () => {
         <div className="absolute inset-0 cyber-grid opacity-[0.05]" />
       </div>
 
-      <div className="relative z-10 w-full max-w-[460px] px-8 py-12">
+      <div className="relative z-10 w-full max-w-[460px] px-6 md:px-8 py-6 md:py-12">
         {/* Branding HUD */}
         <div className="text-center mb-8 group">
            <motion.div 
@@ -88,7 +88,7 @@ const Register = () => {
         <motion.div 
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="glass-dark rounded-[3rem] p-10 border border-white/10 shadow-3xl relative overflow-hidden"
+          className="glass-dark rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-10 border border-white/10 shadow-3xl relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 blur-[60px]" />
           
@@ -102,7 +102,7 @@ const Register = () => {
               <button 
                 type="button"
                 onClick={() => setRole('student')}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
+                className={`flex-1 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 py-3 rounded-xl text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
                   role === 'student' ? 'bg-yellow-400 text-[#020617] shadow-xl shadow-yellow-400/20' : 'text-white/30 hover:text-white/60'
                 }`}
               >
@@ -111,7 +111,7 @@ const Register = () => {
               <button 
                 type="button"
                 onClick={() => setRole('parent')}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
+                className={`flex-1 flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 py-3 rounded-xl text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] transition-all ${
                   role === 'parent' ? 'bg-yellow-400 text-[#020617] shadow-xl shadow-yellow-400/20' : 'text-white/30 hover:text-white/60'
                 }`}
               >
