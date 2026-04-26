@@ -1,0 +1,12 @@
+{
+  "name": "sbt-project",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --workspace=sbt-web",
+    "install-all": "npm install --workspace=sbt-web",
+    "web": "cd sbt-web && npm run dev"
+  },
+  "workspaces": [
+    "sbt-web"
+  ]
+}
