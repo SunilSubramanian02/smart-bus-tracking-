@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:5000'); // Ensure this matches your server API URL
+const socket = io('https://smart-bus-tracking-aan6.onrender.com'); // Ensure this matches your server API URL
 
 // Premium React Component for the Admin/Student Web Dashboard
 const ReactETACard = ({ busId, targetStopId }) => {

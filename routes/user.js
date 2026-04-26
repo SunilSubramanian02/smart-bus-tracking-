@@ -3,6 +3,36 @@ const router = express.Router();
 const User = require('../models/User');
 const { verifyToken, restrictTo } = require('../middleware/auth');
 
+// [GET] /api/users/me - Get current user profile
+router.get('/me', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching profile', error: error.message });
+  }
+});
+
+// [PUT] /api/users/me - Update current user profile
+router.put('/me', verifyToken, async (req, res) => {
+  try {
+    const { name, registerNumber, department } = req.body;
+    
+    const updateData = {};
+    if (name !== undefined) updateData.name = name;
+    if (registerNumber !== undefined) updateData.registerNumber = registerNumber;
+    if (department !== undefined) updateData.department = department;
+
+    const user = await User.findByIdAndUpdate(req.user.id, updateData, { new: true }).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    
+    res.status(200).json({ message: 'Profile updated successfully', user });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating profile', error: error.message });
+  }
+});
+
 // [GET] /api/users - Get all users (Admin only)
 router.get('/', verifyToken, restrictTo('admin'), async (req, res) => {
   try {

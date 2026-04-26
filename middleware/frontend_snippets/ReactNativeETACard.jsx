@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated, Dimensions } from 'react-native';
 import io from 'socket.io-client';
 
-const socket = io('YOUR_SERVER_IP:5000'); // Note: For Android Emulator, use 10.0.2.2 instead of localhost
+const socket = io('https://smart-bus-tracking-aan6.onrender.com'); // Note: For Android Emulator, use 10.0.2.2 instead of localhost
 
 // Mobile React Native Component for the Student/Parent App
 const ReactNativeETACard = ({ busId, targetStopId }) => {

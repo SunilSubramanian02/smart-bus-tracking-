@@ -15,13 +15,17 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: ['https://sbt-web-taupe.vercel.app', 'http://localhost:5173'],
+    credentials: true,
   }
 });
 
 // Security & Middlewares
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: ['https://sbt-web-taupe.vercel.app', 'http://localhost:5173'],
+  credentials: true,
+}));
 app.use(express.json());
 
 // Rate Limiting
@@ -62,6 +66,14 @@ io.on('connection', (socket) => {
     const roomName = `bus_${busId}`;
     socket.join(roomName);
     console.log(`Socket ${socket.id} joined ${roomName}`);
+  });
+
+  // Parent joining their specific room
+  socket.on('join_parent_room', (parentId) => {
+    const roomName = `parent_${parentId}`;
+    socket.join(roomName);
+    socket.join('all_parents'); // Global room for testing purposes
+    console.log(`Socket ${socket.id} joined ${roomName} and all_parents`);
   });
 
   // Driver emitting location updates every 3 seconds
